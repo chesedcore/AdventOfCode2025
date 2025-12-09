@@ -39,16 +39,17 @@ fn count_zero_hits(rotations: Vec<Rotation>) -> i32 {
         
         let old_raw = acc;
         let new_raw = old_raw + delta;
+        let old_block;
+        let new_block;
 
         if delta >= 0 {
-            let old_block = old_raw.div_euclid(100);
-            let new_block = new_raw.div_euclid(100);
-            hits += new_block - old_block;
+            old_block = old_raw.div_euclid(100);
+            new_block = new_raw.div_euclid(100);
         } else {
-            let old_block_ex = (old_raw - 1).div_euclid(100);
-            let new_block_ex = (new_raw - 1).div_euclid(100);
-            hits += (old_block_ex - new_block_ex).abs();
+            old_block = (old_raw - 1).div_euclid(100);
+            new_block = (new_raw - 1).div_euclid(100);
         }
+        hits += (old_block - new_block).abs();
         acc = new_raw.rem_euclid(100);
 
     }
